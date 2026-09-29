@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="theme-color" content="#fff6f1" />
+	<title>Selamat Ulang Tahun! 🎂</title>
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap');
+
+		:root {
+			color-scheme: light;
+			--ink: #34252f;
+			--muted: #796b75;
+			--rose: #ee7991;
+			--rose-dark: #d95e7a;
+			--cream: #fffaf6;
+			--lavender: #ded8ff;
+			--shadow: 0 24px 70px rgba(97, 59, 77, .13);
+		}
+
+		* { box-sizing: border-box; }
+		body {
+			min-height: 100vh;
+			margin: 0;
+			display: grid;
+			place-items: center;
+			overflow-x: hidden;
+			padding: 36px 18px;
+			color: var(--ink);
+			font-family: 'DM Sans', sans-serif;
+			background:
+				radial-gradient(ellipse at 12% 15%, rgba(255, 210, 205, .64), transparent 35%),
+				radial-gradient(ellipse at 88% 78%, rgba(222, 216, 255, .67), transparent 34%),
+				#fff6f1;
+		}
+
+		.sparkle {
+			position: fixed;
+			z-index: -1;
+			color: #e6a9ac;
+			opacity: .65;
+			animation: float 5s ease-in-out infinite;
+			user-select: none;
+		}
+		.sparkle.one { top: 10%; left: 10%; font-size: 28px; }
+		.sparkle.two { top: 19%; right: 12%; font-size: 18px; animation-delay: -1.3s; }
+		.sparkle.three { bottom: 12%; left: 15%; font-size: 22px; animation-delay: -2.5s; }
+		.sparkle.four { right: 9%; bottom: 20%; font-size: 30px; animation-delay: -3.2s; }
+
+		.card {
+			position: relative;
+			width: min(100%, 680px);
+			padding: 54px clamp(24px, 7vw, 70px) 44px;
+			overflow: hidden;
+			text-align: center;
+			background: rgba(255, 250, 246, .92);
+			border: 1px solid rgba(255, 255, 255, .9);
+			border-radius: 30px;
+			box-shadow: var(--shadow);
+			backdrop-filter: blur(12px);
+			animation: arrive .8s cubic-bezier(.2, .8, .2, 1) both;
+		}
+		.card::before, .card::after {
+			position: absolute;
+			width: 175px;
+			height: 175px;
+			content: '';
+			border-radius: 50%;
+			filter: blur(2px);
+			opacity: .56;
+			pointer-events: none;
+		}
+		.card::before { top: -110px; left: -75px; background: #ffd5d6; }
+		.card::after { right: -100px; bottom: -120px; background: #dcd7ff; }
+
+		.eyebrow {
+			position: relative;
+			z-index: 1;
+			margin: 0 0 14px;
+			color: var(--rose-dark);
+			font-size: .76rem;
+			font-weight: 700;
+			letter-spacing: .2em;
+			text-transform: uppercase;
+		}
+		h1, h2, p { position: relative; z-index: 1; }
+		h1 {
+			margin: 0;
+			font-family: 'Playfair Display', Georgia, serif;
+			font-size: clamp(2.65rem, 9vw, 4.55rem);
+			line-height: 1.08;
+			letter-spacing: -.045em;
+		}
+		h1 span { color: var(--rose-dark); }
+		.subtitle {
+			margin: 15px 0 0;
+			color: var(--muted);
+			font-size: clamp(.96rem, 2.6vw, 1.08rem);
+		}
+
+		.cake-wrap {
+			position: relative;
+			display: grid;
+			width: 190px;
+			height: 188px;
+			margin: 20px auto 18px;
+			place-items: center;
+		}
+		.cake { position: relative; width: 152px; height: 112px; }
+		.plate {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 152px;
+			height: 17px;
+			border-radius: 50%;
+			background: #f0dbe0;
+			box-shadow: inset 0 -4px 0 rgba(180, 112, 130, .13);
+		}
+		.cake-layer {
+			position: absolute;
+			bottom: 13px;
+			left: 17px;
+			width: 118px;
+			height: 48px;
+			border-radius: 9px 9px 13px 13px;
+			background: #f6a5ab;
+			box-shadow: inset 0 -8px 0 #e98491;
+		}
+		.cake-layer::before {
+			position: absolute;
+			top: -12px;
+			left: 0;
+			width: 100%;
+			height: 22px;
+			content: '';
+			border-radius: 50%;
+			background: #fff0da;
+		}
+		.icing {
+			position: absolute;
+			top: 31px;
+			left: 25px;
+			z-index: 1;
+			width: 102px;
+			height: 21px;
+			border-radius: 0 0 12px 12px;
+			background: #fff0da;
+		}
+		.icing::before, .icing::after {
+			position: absolute;
+			top: 8px;
+			width: 11px;
+			height: 16px;
+			content: '';
+			border-radius: 0 0 8px 8px;
+			background: #fff0da;
+		}
+		.icing::before { left: 20px; }
+		.icing::after { right: 22px; height: 12px; }
+		.candle {
+			position: absolute;
+			bottom: 78px;
+			left: 72px;
+			z-index: 2;
+			width: 9px;
+			height: 34px;
+			border-radius: 4px;
+			background: repeating-linear-gradient(135deg, #fff8ec 0 5px, #a8a2f0 5px 9px);
+		}
+		.flame {
+			position: absolute;
+			top: -19px;
+			left: 1px;
+			width: 8px;
+			height: 14px;
+			border-radius: 50% 50% 50% 0;
+			background: #ffbf56;
+			transform: rotate(-45deg);
+			transform-origin: 50% 80%;
+			box-shadow: 0 0 17px rgba(255, 177, 69, .8);
+			animation: flicker .8s ease-in-out infinite alternate;
+		}
+		.cake-sprinkle {
+			position: absolute;
+			z-index: 2;
+			width: 5px;
+			height: 5px;
+			border-radius: 50%;
+			background: #a8a2f0;
+		}
+		.s1 { top: 59px; left: 48px; background: #fff1a8; }
+		.s2 { top: 70px; left: 91px; background: #a6d8bd; }
+		.s3 { top: 57px; left: 108px; background: #fff1a8; }
+
+		.message {
+			max-width: 475px;
+			margin: 0 auto;
+			color: #6c5c65;
+			font-size: 1rem;
+			line-height: 1.85;
+		}
+		.wish {
+			margin: 17px 0 28px;
+			color: #956c79;
+			font-family: 'Playfair Display', Georgia, serif;
+			font-size: 1.08rem;
+			font-style: italic;
+		}
+		.button-row {
+			position: relative;
+			z-index: 1;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			gap: 11px;
+		}
+		button {
+			min-height: 48px;
+			padding: 0 21px;
+			color: #fff;
+			font: inherit;
+			font-size: .9rem;
+			font-weight: 700;
+			cursor: pointer;
+			border: 0;
+			border-radius: 999px;
+			background: var(--rose-dark);
+			box-shadow: 0 8px 18px rgba(217, 94, 122, .22);
+			transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+		}
+		button:hover { transform: translateY(-2px); background: #c94d6b; box-shadow: 0 11px 22px rgba(217, 94, 122, .3); }
+		button:active { transform: translateY(0); }
+		button:focus-visible { outline: 3px solid #947de0; outline-offset: 4px; }
+		button.secondary {
+			color: #775c68;
+			background: #f5e9eb;
+			box-shadow: none;
+		}
+		button.secondary:hover { background: #eedde1; }
+		.footer {
+			position: relative;
+			z-index: 1;
+			margin: 32px 0 0;
+			color: #aa98a0;
+			font-size: .78rem;
+			letter-spacing: .04em;
+		}
+
+		.confetti {
+			position: fixed;
+			top: -16px;
+			z-index: 5;
+			width: 9px;
+			height: 14px;
+			pointer-events: none;
+			animation: fall var(--duration) linear forwards;
+		}
+		.toast {
+			position: fixed;
+			right: 20px;
+			bottom: 20px;
+			z-index: 8;
+			max-width: calc(100vw - 40px);
+			padding: 13px 18px;
+			color: white;
+			font-size: .9rem;
+			background: #493642;
+			border-radius: 14px;
+			box-shadow: var(--shadow);
+			opacity: 0;
+			transform: translateY(12px);
+			transition: opacity .25s ease, transform .25s ease;
+			pointer-events: none;
+		}
+		.toast.show { opacity: 1; transform: translateY(0); }
+
+		@keyframes arrive { from { opacity: 0; transform: translateY(18px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+		@keyframes float { 50% { transform: translateY(-12px) rotate(12deg); } }
+		@keyframes flicker { to { transform: rotate(-39deg) scale(.9); opacity: .82; } }
+		@keyframes fall { to { transform: translate3d(var(--drift), 110vh, 0) rotate(720deg); opacity: .85; } }
+		@media (max-width: 480px) {
+			body { padding: 20px 14px; }
+			.card { padding-top: 42px; padding-bottom: 34px; border-radius: 25px; }
+			.cake-wrap { margin-top: 14px; margin-bottom: 12px; }
+			.footer { margin-top: 26px; }
+		}
+		@media (prefers-reduced-motion: reduce) {
+			*, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+		}
+	</style>
+</head>
+<body>
+	<span class="sparkle one" aria-hidden="true">✦</span>
+	<span class="sparkle two" aria-hidden="true">✧</span>
+	<span class="sparkle three" aria-hidden="true">✧</span>
+	<span class="sparkle four" aria-hidden="true">✦</span>
+
+	<main class="card">
+		<p class="eyebrow">Hari istimewa untuk orang istimewa</p>
+		<h1>Selamat Ulang<br /><span>Tahun!</span></h1>
+		<p class="subtitle">Hari ini semua hal baik tentangmu layak dirayakan ✨</p>
+
+		<div class="cake-wrap" aria-label="Ilustrasi kue ulang tahun dengan lilin menyala" role="img">
+			<div class="cake">
+				<div class="plate"></div>
+				<div class="cake-layer"></div>
+				<div class="icing"></div>
+				<div class="cake-sprinkle s1"></div>
+				<div class="cake-sprinkle s2"></div>
+				<div class="cake-sprinkle s3"></div>
+				<div class="candle"><span class="flame"></span></div>
+			</div>
+		</div>
+
+		<p class="message">
+			Semoga langkahmu selalu dipenuhi kebahagiaan, hatimu dikelilingi orang-orang tersayang,
+			dan semua impianmu satu per satu menjadi nyata. Teruslah bersinar dengan caramu sendiri!
+		</p>
+		<p class="wish">“Semoga tahun ini menjadi bab paling indah dalam ceritamu.”</p>
+
+		<div class="button-row">
+			<button id="celebrateBtn" type="button">🎉 Rayakan!</button>
+			<button id="wishBtn" class="secondary" type="button">💌 Kirim doa</button>
+		</div>
+		<p class="footer">Dibuat dengan banyak cinta &amp; sedikit taburan gula 💗</p>
+	</main>
+
+	<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+	<script>
+		const celebrateBtn = document.querySelector('#celebrateBtn');
+		const wishBtn = document.querySelector('#wishBtn');
+		const toast = document.querySelector('#toast');
+		let toastTimer;
+
+		function celebrate() {
+			const colors = ['#ee7991', '#ffcf70', '#9b8be8', '#9bd5b5', '#f3a47d', '#f5d8e8'];
+			for (let i = 0; i < 90; i += 1) {
+				const piece = document.createElement('span');
+				piece.className = 'confetti';
+				piece.style.left = `${Math.random() * 100}vw`;
+				piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+				piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+				piece.style.setProperty('--duration', `${2.2 + Math.random() * 2.3}s`);
+				piece.style.setProperty('--drift', `${Math.random() * 180 - 90}px`);
+				piece.style.animationDelay = `${Math.random() * 0.7}s`;
+				document.body.append(piece);
+				window.setTimeout(() => piece.remove(), 5500);
+			}
+			showToast('Yeay! Semoga semua harapan baikmu terkabul 🎂');
+		}
+
+		function showToast(message) {
+			toast.textContent = message;
+			toast.classList.add('show');
+			window.clearTimeout(toastTimer);
+			toastTimer = window.setTimeout(() => toast.classList.remove('show'), 3200);
+		}
+
+		celebrateBtn.addEventListener('click', celebrate);
+		wishBtn.addEventListener('click', () => {
+			const message = 'Selamat ulang tahun! Semoga sehat, bahagia, dan semua impianmu tercapai. 🎂💖';
+			if (navigator.share) {
+				navigator.share({ title: 'Ucapan Ulang Tahun', text: message }).catch(() => {});
+			} else if (navigator.clipboard) {
+				navigator.clipboard.writeText(message)
+					.then(() => showToast('Doa manis berhasil disalin. Kirim ke orang tersayang! 💌'))
+					.catch(() => showToast(message));
+			} else {
+				showToast(message);
+			}
+		});
+	</script>
+</body>
+</html>
